@@ -14,14 +14,14 @@ docker build -t my_php .
 
 > #### 使用 php-cli
 
-##### (1).查看php版本
+##### 查看php版本
 ```
 docker run -it --rm my_php php -v
 ```
-##### (2).查看php安装的扩展模块
+##### 查看php安装的扩展模块
 ```
 docker run -it --rm my_php php -m
 ```
-##### (3).查看composer版本
+##### 查看composer版本
 ```
 docker run -it --rm my_php composer -V
