@@ -3,6 +3,8 @@ FROM php:7.4-fpm
 ENV REDIS_VERSION=5.2.2
 ENV AMQP_VERSION=1.10.2
 ENV RABBITMQC_VERSION=0.8.0
+ENV IMAGICK_VERSION=3.4.4
+ENV IMAGEMAGICK_VERSION=7.0.10-39
 
 COPY conf/sources.list /opt/sources.list
 
@@ -54,6 +56,20 @@ RUN docker-php-source extract \
     && cp /opt/rabbitmq-c-${RABBITMQC_VERSION}/librabbitmq/amqp_ssl_socket.h /usr/src/php/ext/amqp \
     && docker-php-ext-configure amqp --with-php-config=/usr/local/bin/php-config  --with-librabbitmq-dir=/usr/local/rabbitmq-c \
     && docker-php-ext-install amqp
+
+
+# 安装imagick扩展
+COPY extend/ImageMagick-${IMAGEMAGICK_VERSION}.tar.gz /opt/ImageMagick.tar.gz
+RUN cd /opt/ && tar -zxvf ImageMagick.tar.gz \
+    && cd ImageMagick-${IMAGEMAGICK_VERSION} \
+    && ./configure --prefix=/usr/local/ImageMagick \
+    && make && make install
+
+COPY extend/imagick-${IMAGICK_VERSION}.tgz /opt/imagick.tgz
+RUN docker-php-source extract \
+    && cd /opt/ && tar zxvf imagick.tgz && mv imagick-${IMAGICK_VERSION} /usr/src/php/ext/imagick \
+    && docker-php-ext-configure imagick --with-php-config=/usr/local/bin/php-config  --with-imagick=/usr/local/ImageMagick \
+    && docker-php-ext-install imagick
 
 RUN rm -rf /opt/*.tgz && rm -rf /opt/*.tar.gz
 
