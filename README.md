@@ -11,5 +11,3 @@
 cd php
 docker build -t my_php .
 ```
-
-特别感谢：https://github.com/xiaochengfu
