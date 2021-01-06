@@ -2,10 +2,8 @@
 
 > #### 镜像说明
 1. 当前php版本为php-7.4-fpm，可自定义php版本
-2. 已安装redis和pod_mysql扩展
-3. 已安装amqp扩展
-4. 已安装composer
-
+2. 已添加的扩展：redis pod_mysql amqp mongodb imagick bcmath sockets zip
+3. 已添加composer
 
 > #### 构建php
 ```shell script
