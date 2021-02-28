@@ -7,6 +7,7 @@ ENV IMAGICK_VERSION=3.4.4
 ENV IMAGEMAGICK_VERSION=7.0.10-39
 ENV MONGO_VERSION=1.9.0
 ENV COMPOSER_VERSION=2.0.8
+ENV SWOOLE_VERSION=4.6.2
 
 COPY conf/sources.list /opt/sources.list
 
@@ -49,6 +50,7 @@ COPY extend/redis-${REDIS_VERSION}.tgz \
     extend/amqp-${AMQP_VERSION}.tgz \
     extend/ImageMagick-${IMAGEMAGICK_VERSION}.tar.gz \
     extend/imagick-${IMAGICK_VERSION}.tgz \
+    extend/swoole-${SWOOLE_VERSION}.tgz \
     /opt/
 
 # 安装redis、pod_mysql、mongo扩展
@@ -57,7 +59,9 @@ RUN docker-php-ext-install pdo_mysql \
     && pecl install /opt/redis-${REDIS_VERSION}.tgz \
     && docker-php-ext-enable redis \
     && pecl install /opt/mongodb-${MONGO_VERSION}.tgz \
-    && docker-php-ext-enable mongodb
+    && docker-php-ext-enable mongodb \
+    && pecl install /opt/swoole-${SWOOLE_VERSION}.tgz \
+    && docker-php-ext-enable swoole
 
 # 安装amqp扩展
 RUN cd /opt/ && tar -zxvf rabbitmq-c-${RABBITMQC_VERSION}.tar.gz \
