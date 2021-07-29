@@ -4,10 +4,5 @@
 > 本项目持续更新
 
 
-### 构建镜像
-
-1.构建php  
-```shell script
-cd php
-docker build -t my_php .
-```
+> 查看容器ip  
+> docker inspect --format='{{.NetworkSettings.IPAddress}}' <name or id>

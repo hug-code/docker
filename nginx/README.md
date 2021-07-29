@@ -10,7 +10,7 @@ docker build -t my_nginx .
 
 > ### 创建容器
 ```shell script
-docker run -d --name nginx -p 8883:80 -v /d/code:/home/wwwroot my_nginx
+docker run -d --name nginx -p 8883:80 -v /conf/nginx.conf::/usr/local/nginx/conf/nginx.conf -v /code:/home/wwwroot my_nginx
 ```
 
 > ### 配置文件参考
