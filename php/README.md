@@ -10,6 +10,11 @@
 docker build -t my_php .
 ```
 
+> ### 创建容器
+```shell script
+docker run -d --name php -p 9000:9000 my_php
+```
+
 > ### 使用 php-cli
 
 #### 查看php版本

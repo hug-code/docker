@@ -10,7 +10,37 @@ docker build -t my_nginx .
 
 > ### 创建容器
 ```shell script
-docker run -d --name nginx -p 8883:80 -v /conf/nginx.conf::/usr/local/nginx/conf/nginx.conf -v /code:/home/wwwroot my_nginx
+docker run -d
+  --name nginx
+  -p 80:80
+  -v /conf/nginx.conf:/usr/local/nginx/conf/nginx.conf
+  -v /code:/home/wwwroot
+  my_nginx
+```
+
+> ### nginx + php访问站点
+```shell script
+# 启动php容器
+docker run -d
+  --name php
+  -p 9000:9000
+  -v /code:/home/wwwroot
+  my_php
+
+# 注意，把php和nginx挂载在同一个数据卷下面
+
+# 查看php容器的IP地址
+docker inspect --format='{{.NetworkSettings.IPAddress}}' php
+
+# nginx 解析php
+location ~ .*\.php?$
+{
+    root /home/wwwroot/;
+    include fastcgi_params;
+    fastcgi_pass  <php容器ip>:9000;
+    fastcgi_index index.php;
+    fastcgi_param SCRIPT_FILENAME /$document_root$fastcgi_script_name;
+}
 ```
 
 > ### 配置文件参考

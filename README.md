@@ -6,3 +6,4 @@
 
 > 查看容器ip  
 > docker inspect --format='{{.NetworkSettings.IPAddress}}' <name or id>
+>> 
