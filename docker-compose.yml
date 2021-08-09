@@ -3,28 +3,29 @@ version: '3'
 services:
   nginx:
     #    build: ./nginx
-    image: nginx-test
+    image: my_nginx
     container_name: "nginx"
     restart: always
     ports:
-      - "8880:80"
+      - "80:80"
       - "443:443"
     depends_on:
       - "php"
     volumes:
-      - "/d/website/docker/nginx/conf/nginx.conf:/usr/local/nginx/conf/nginx.conf"
+      - "/d/code/github/docker/nginx/conf/nginx.conf:/usr/local/nginx/conf/nginx.conf"
       - "/d/code:/home/wwwroot"
     networks:
       - net-web
 
   php:
     #    build: ./php
-    image: php7.4:latest
+    image: my_php7.4
     container_name: "php"
     restart: always
     ports:
       - "9000:9000"
     volumes:
+      - "/d/code/github/docker/php/conf/php.ini:/usr/local/etc/php/php.ini"
       - "/d/code:/home/wwwroot"
     networks:
       - net-web

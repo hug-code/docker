@@ -3,8 +3,8 @@ FROM php:7.4-fpm
 ENV REDIS_VERSION=5.2.2
 ENV AMQP_VERSION=1.10.2
 ENV RABBITMQC_VERSION=0.8.0
-ENV IMAGICK_VERSION=3.4.4
-ENV IMAGEMAGICK_VERSION=7.0.10-39
+#ENV IMAGICK_VERSION=3.4.4
+#ENV IMAGEMAGICK_VERSION=7.0.10-39
 ENV MONGO_VERSION=1.9.0
 ENV COMPOSER_VERSION=2.0.8
 ENV SWOOLE_VERSION=4.6.2
@@ -48,10 +48,10 @@ COPY extend/redis-${REDIS_VERSION}.tgz \
     extend/mongodb-${MONGO_VERSION}.tgz \
     extend/rabbitmq-c-${RABBITMQC_VERSION}.tar.gz \
     extend/amqp-${AMQP_VERSION}.tgz \
-    extend/ImageMagick-${IMAGEMAGICK_VERSION}.tar.gz \
-    extend/imagick-${IMAGICK_VERSION}.tgz \
     extend/swoole-${SWOOLE_VERSION}.tgz \
     /opt/
+#    extend/ImageMagick-${IMAGEMAGICK_VERSION}.tar.gz \
+#    extend/imagick-${IMAGICK_VERSION}.tgz \
 
 # 安装redis、pod_mysql、mongo扩展
 RUN docker-php-ext-install pdo_mysql \
@@ -74,13 +74,13 @@ RUN cd /opt/ && tar -zxvf rabbitmq-c-${RABBITMQC_VERSION}.tar.gz \
     && docker-php-ext-install amqp
 
 # 安装imagick扩展
-RUN cd /opt/ && tar -zxvf ImageMagick-${IMAGEMAGICK_VERSION}.tar.gz \
-    && cd ImageMagick-${IMAGEMAGICK_VERSION} \
-    && ./configure --prefix=/usr/local/ImageMagick \
-    && make && make install \
-    && cd /opt/ && tar zxvf imagick-${IMAGICK_VERSION}.tgz && mv imagick-${IMAGICK_VERSION} /usr/src/php/ext/imagick \
-    && docker-php-ext-configure imagick --with-php-config=/usr/local/bin/php-config  --with-imagick=/usr/local/ImageMagick \
-    && docker-php-ext-install imagick
+#RUN cd /opt/ && tar -zxvf ImageMagick-${IMAGEMAGICK_VERSION}.tar.gz \
+#    && cd ImageMagick-${IMAGEMAGICK_VERSION} \
+#    && ./configure --prefix=/usr/local/ImageMagick \
+#    && make && make install \
+#    && cd /opt/ && tar zxvf imagick-${IMAGICK_VERSION}.tgz && mv imagick-${IMAGICK_VERSION} /usr/src/php/ext/imagick \
+#    && docker-php-ext-configure imagick --with-php-config=/usr/local/bin/php-config  --with-imagick=/usr/local/ImageMagick \
+#    && docker-php-ext-install imagick
 
 # 安装compser扩展  删除软件包
 ADD extend/composer-${COMPOSER_VERSION}.phar /usr/local/bin/composer
