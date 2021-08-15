@@ -84,7 +84,8 @@ RUN cd /opt/ && tar -zxvf rabbitmq-c-${RABBITMQC_VERSION}.tar.gz \
 
 # 安装compser扩展  删除软件包
 ADD extend/composer-${COMPOSER_VERSION}.phar /usr/local/bin/composer
-RUN chmod 755 /usr/local/bin/composer && \
-    rm -rf /opt/*
+RUN /usr/local/bin/composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/ \
+    && chmod 755 /usr/local/bin/composer \
+    && rm -rf /opt/*
 
 EXPOSE 9000

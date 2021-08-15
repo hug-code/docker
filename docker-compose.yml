@@ -19,7 +19,7 @@ services:
 
   php:
     #    build: ./php
-    image: my_php7.4
+    image: my_php
     container_name: "php"
     restart: always
     ports:
