@@ -14,9 +14,9 @@ COPY conf/sources.list /opt/sources.list
 WORKDIR /home/wwwroot
 
 # 使用阿里云源更新
-RUN mv /etc/apt/sources.list /etc/apt/sources.list.bak \
-    && mv /opt/sources.list /etc/apt/ \
-    && apt-get update \
+#RUN mv /etc/apt/sources.list /etc/apt/sources.list.bak \
+#    && mv /opt/sources.list /etc/apt/
+RUN apt-get update \
     && apt-get install -y \
     libfreetype6-dev \
     libjpeg62-turbo-dev \
